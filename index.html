@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bare Bones Mail</title>
+<link rel="stylesheet" href="Main.css">
+</head>
+<body>
+
+<div id="loading"></div>
+
+<!-- Setup: Client ID -->
+<div id="setup" class="center" style="display:none">
+ <div class="card">
+  <h1>Bare Bones Mail</h1>
+  <p>A small Gmail client. To connect to your Google account you need a free OAuth Client ID (one-time setup):</p>
+  <ol>
+   <li>Go to <a href="https://console.cloud.google.com/projectcreate" target="_blank" rel="noopener">Google Cloud Console</a> and create a project.</li>
+   <li>Enable the <b>Gmail API</b> (APIs &amp; Services → Library).</li>
+   <li>OAuth consent screen: choose <b>External</b>, fill in the basics, and add your Gmail address under <b>Test users</b>.</li>
+   <li>Credentials → Create credentials → <b>OAuth client ID</b> → type <b>Web application</b>.</li>
+   <li>Under <b>Authorized JavaScript origins</b> add <code id="origin"></code></li>
+   <li>Paste the Client ID below.</li>
+  </ol>
+  <input id="cid" placeholder="123456789-abc.apps.googleusercontent.com" spellcheck="false">
+  <button class="btn primary" id="savecid">Save</button>
+  <p style="font-size:12px">The Client ID is stored only in this browser. Your mail goes straight between this page and Google.</p>
+ </div>
+</div>
+
+<!-- Sign in -->
+<div id="signin" class="center" style="display:none">
+ <div class="card" style="text-align:center">
+  <h1>Bare Bones Mail</h1>
+  <p>Sign in with Google to read and send mail.</p>
+  <button class="btn primary" id="signinbtn">Sign in with Google</button>
+  <p id="signinerr" class="err"></p>
+  <p style="font-size:12px"><a href="#" id="changecid">Change Client ID</a></p>
+ </div>
+</div>
+
+<!-- App -->
+<div id="app">
+ <div id="top">
+  <button class="iconbtn" id="menubtn" title="Menu"></button>
+  <span class="logo">Bare Bones Mail</span>
+  <input id="search" placeholder="Search mail (e.g. from:amazon is:unread)" spellcheck="false">
+  <div id="acct"><span id="email"></span><div id="avatar"></div><button class="btn" id="signout">Sign out</button></div>
+ </div>
+ <div id="side">
+  <button class="btn primary compose" id="composebtn"></button>
+  <div id="labels"></div>
+ </div>
+ <div id="main">
+  <div id="listpane">
+   <div id="listbar">
+    <button class="iconbtn" id="refresh" title="Refresh"></button>
+    <span id="range" class="sp"></span>
+    <button class="btn" id="newer">Newer</button>
+    <button class="btn" id="older">Older</button>
+   </div>
+   <div id="list"></div>
+  </div>
+  <div id="reader">
+   <div id="rtool" style="display:none"></div>
+   <div id="rbody"><div class="empty">Select a conversation to open it.</div></div>
+   <div id="chatbar">
+    <div id="replyhint"></div>
+    <div class="cbox">
+     <textarea id="chatin" rows="1" placeholder="Message" spellcheck="true"></textarea>
+     <button class="iconbtn" id="chatfull" title="Open full composer (edit recipients / subject)"></button>
+     <button class="iconbtn" id="chatsend" title="Send (Enter)" style="color:var(--accent)"></button>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
+
+<!-- Compose -->
+<div id="compose">
+ <header><span id="ctitle">New message</span><button class="iconbtn" id="cclose" title="Close"></button></header>
+ <input id="cto" placeholder="To" spellcheck="false">
+ <div class="ccrow"><input id="ccc" placeholder="Cc" spellcheck="false"></div>
+ <input id="csub" placeholder="Subject">
+ <textarea id="cbody" placeholder="Write your message…"></textarea>
+ <footer><button class="btn primary" id="csend">Send</button><button class="btn" id="cdiscard">Discard</button><span id="cmsg"></span></footer>
+</div>
+
+<div id="toast"><span id="toasttxt"></span><button id="toastundo">Undo</button></div>
+
+ <script src="./renderer.js"></script>
+</body>
+</html>
